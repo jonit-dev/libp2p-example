@@ -13,5 +13,6 @@
       "authToken": ""
     }
   },
-  "workbench.activityBar.orientation": "vertical"
+  "workbench.activityBar.orientation": "vertical",
+  "typescript.tsdk": "node_modules/typescript/lib"
 }

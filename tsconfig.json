@@ -4,7 +4,7 @@
     "module": "ES2022", // Changed to support ES modules
     "outDir": "./dist",
     "rootDir": "./src",
-    "strict": false,
+
     "skipLibCheck": true,
     "esModuleInterop": true,
 

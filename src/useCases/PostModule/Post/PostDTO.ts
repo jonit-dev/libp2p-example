@@ -20,13 +20,13 @@ export class CreatePostDTO {
 export class UpdatePostDTO extends CreatePostDTO {
   @IsOptional()
   @IsString()
-  title: string;
+  declare title: string;
 
   @IsOptional()
   @IsString()
-  body: string;
+  declare body: string;
 
   @IsOptional()
   @IsString({ each: true })
-  tags: string[];
+  declare tags: string[];
 }

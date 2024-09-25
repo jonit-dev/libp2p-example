@@ -946,20 +946,6 @@
     multiformats "^13.1.0"
     weald "^1.0.2"
 
-"@libp2p/mplex@^11.0.5":
-  version "11.0.5"
-  resolved "https://registry.yarnpkg.com/@libp2p/mplex/-/mplex-11.0.5.tgz#e310bce628e7b7d6e2837cbd13d5e5e589bbbfcd"
-  integrity sha512-+hHzShRW2g/AWm3keLIqw2/fMyebmvkspiF3iv8dJCzTsBSPKb6mv6/88ND3ac5SfLwqghlQ/ve7Ooo3PFs0rA==
-  dependencies:
-    "@libp2p/interface" "^2.1.2"
-    "@libp2p/utils" "^6.0.5"
-    it-pipe "^3.0.1"
-    it-pushable "^3.2.3"
-    it-stream-types "^2.0.1"
-    uint8-varint "^2.0.4"
-    uint8arraylist "^2.4.8"
-    uint8arrays "^5.1.0"
-
 "@libp2p/multistream-select@^6.0.5":
   version "6.0.5"
   resolved "https://registry.yarnpkg.com/@libp2p/multistream-select/-/multistream-select-6.0.5.tgz#919c923ac13573a44de6945695f1d1882ba35da4"
@@ -3598,7 +3584,7 @@ inversify-express-utils@^6.4.3:
 
 inversify@^6.0.1:
   version "6.0.1"
-  resolved "https://registry.npmjs.org/inversify/-/inversify-6.0.1.tgz"
+  resolved "https://registry.yarnpkg.com/inversify/-/inversify-6.0.1.tgz#b20d35425d5d8c5cd156120237aad0008d969f02"
   integrity sha512-B3ex30927698TJENHR++8FfEaJGqoWOgI6ZY5Ht/nLUsFCwHn6akbwtnUAPCgUepAnTpe2qHxhDNjoKLyz6rgQ==
 
 inversify@^6.0.2:
@@ -5982,10 +5968,10 @@ type-is@~1.6.17, type-is@~1.6.18:
     media-typer "0.3.0"
     mime-types "~2.1.24"
 
-typescript@^4.9.5:
-  version "4.9.5"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.9.5.tgz#095979f9bcc0d09da324d58d03ce8f8374cbe65a"
-  integrity sha512-1FXk9E2Hm+QzZQ7z+McJiHL4NW1F2EzMu9Nq9i3zAaGqibafqYwCVU6WyWAuyQRRzOlxou8xZSyXLEN8oKj24g==
+typescript@4.7.4:
+  version "4.7.4"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.7.4.tgz#1a88596d1cf47d59507a1bcdfb5b9dfe4d488235"
+  integrity sha512-C0WQT0gezHuw6AdY1M2jxUO83Rjf0HP7Sk1DtXj6j1EwkQNZrHAg2XPWlq62oqEhYvONq5pkC2Y9oPljWToLmQ==
 
 uint8-varint@^2.0.1, uint8-varint@^2.0.2, uint8-varint@^2.0.4:
   version "2.0.4"
