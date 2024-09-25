@@ -1,9 +1,10 @@
+import { inject } from "inversify";
 import { provide } from "inversify-binding-decorators";
 import { ConsoleHelper } from "./ConsoleHelper";
 
 @provide(ServerHelper)
 export class ServerHelper {
-  constructor(private consoleHelper: ConsoleHelper) {}
+  constructor(@inject(ConsoleHelper) private consoleHelper: ConsoleHelper) {}
 
   public showBootstrapMessage(config: { env: string; port: number }): void {
     const { port, env } = config;

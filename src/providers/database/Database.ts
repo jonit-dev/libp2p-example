@@ -1,3 +1,4 @@
+import { inject } from "inversify";
 import { provide } from "inversify-binding-decorators";
 import { JSONDatabase } from "./JSONDatabase";
 
@@ -5,7 +6,7 @@ import { JSONDatabase } from "./JSONDatabase";
 export class Database {
   private config;
 
-  constructor(private jsonDatabase: JSONDatabase) {
+  constructor(@inject(JSONDatabase) private jsonDatabase: JSONDatabase) {
     this.config = {
       adapter: this.jsonDatabase,
     };

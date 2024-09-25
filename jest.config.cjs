@@ -1,7 +1,13 @@
 /** @type {import('ts-jest/dist/types').InitialOptionsTsJest} */
 module.exports = {
-  preset: "ts-jest",
+  preset: "ts-jest/presets/default-esm",
   testEnvironment: "node",
+  extensionsToTreatAsEsm: [".ts"],
+  globals: {
+    "ts-jest": {
+      useESM: true,
+    },
+  },
   setupFilesAfterEnv: ["dotenv/config", "./jest.setup.ts"],
   testPathIgnorePatterns: ["/node_modules/", "/dist/"],
   testMatch: ["**/**/__tests__/*.spec.ts"],

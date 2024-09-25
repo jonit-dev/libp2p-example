@@ -2,6 +2,7 @@ import { Database } from "@providers/database/Database";
 import { DTOValidatorMiddleware } from "@providers/middlewares/DTOValidatorMiddleware";
 import { mongooseQueryParserMiddleware } from "@providers/middlewares/MongoseQueryParserMiddleware";
 import { Request, Response } from "express";
+import { inject } from "inversify";
 import {
   controller,
   httpDelete,
@@ -19,7 +20,7 @@ import { CreatePostDTO, UpdatePostDTO } from "./PostDTO";
 
 @controller("/posts")
 export class PostController implements interfaces.Controller {
-  constructor(private database: Database) {}
+  constructor(@inject(Database) private database: Database) {}
 
   @httpPost("/", DTOValidatorMiddleware(CreatePostDTO))
   private async create(
