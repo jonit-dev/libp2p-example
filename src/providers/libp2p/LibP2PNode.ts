@@ -1,4 +1,5 @@
-import { mplex } from "@libp2p/mplex";
+import { yamux } from "@chainsafe/libp2p-yamux";
+
 import { tcp } from "@libp2p/tcp";
 import { webSockets } from "@libp2p/websockets";
 import { provide } from "inversify-binding-decorators";
@@ -10,19 +11,26 @@ import { noise } from "@chainsafe/libp2p-noise";
 export class LibP2PNode {
   public async createNode(): Promise<Libp2p> {
     const node = await createLibp2p({
-      transports: [tcp(), webSockets()],
+      addresses: {
+        listen: ["/ip4/127.0.0.1/tcp/8000/ws"],
+      },
+      transports: [webSockets(), tcp()],
       connectionEncrypters: [noise()],
-      streamMuxers: [mplex()],
+      streamMuxers: [yamux()],
     });
 
     await node.start();
     console.log("libp2p node has started");
 
-    // Log the node's addresses
-    console.log("Node addresses:");
-    node.getMultiaddrs().forEach((addr) => {
-      console.log(addr.toString());
-    });
+    const addresses = node.getMultiaddrs();
+
+    if (addresses.length > 0) {
+      addresses.forEach((addr) => {
+        console.log(addr.toString());
+      });
+    } else {
+      console.log("No addresses found.");
+    }
 
     return node;
   }

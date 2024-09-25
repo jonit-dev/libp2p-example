@@ -4,6 +4,9 @@
   "main": "index.js",
   "license": "MIT",
   "type": "module",
+  "engines": {
+    "node": "21.x"
+  },
   "scripts": {
     "dev": "tsx watch ./src/server.ts",
     "routes": "tsx ./src/server.ts --show-routes",
@@ -57,6 +60,11 @@
     "uuid": "^8.3.2"
   },
   "dependencies": {
+    "@chainsafe/libp2p-noise": "^16.0.0",
+    "@chainsafe/libp2p-yamux": "^7.0.1",
+    "@libp2p/noise": "^12.0.1",
+    "@libp2p/tcp": "^10.0.5",
+    "@libp2p/websockets": "^9.0.5",
     "apicache-plus": "^2.3.1",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.13.2",
@@ -64,6 +72,7 @@
     "dayjs": "^1.10.7",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
+    "libp2p": "^2.1.3",
     "lodash": "^4.17.21",
     "mongoose-query-parser": "^1.2.1",
     "node-cron": "^3.0.0",
