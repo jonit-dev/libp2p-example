@@ -3,7 +3,6 @@ import "reflect-metadata"; //! THIS IMPORT MUST ALWAYS COME FIRST. BEWARE VSCODE
 import "dotenv/config";
 import "express-async-errors";
 
-import { LibP2PNode } from "@providers/libp2p/LibP2PNode";
 import cors from "cors";
 import express from "express";
 import { getRouteInfo, InversifyExpressServer } from "inversify-express-utils";
@@ -27,11 +26,7 @@ server.setConfig((app) => {
 });
 
 const app = server.build();
-app.listen(port, async () => {
-  const libp2pNode = container.get(LibP2PNode);
-
-  await libp2pNode.createNode();
-});
+app.listen(port);
 
 if (process.argv.includes("--show-routes")) {
   const routeInfo = getRouteInfo(container);

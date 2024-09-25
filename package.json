@@ -8,6 +8,7 @@
     "node": "21.x"
   },
   "scripts": {
+    "p2p": "tsx ./src/p2pnode.ts",
     "dev": "tsx watch ./src/server.ts",
     "routes": "tsx ./src/server.ts --show-routes",
     "build": "tsc -p .",

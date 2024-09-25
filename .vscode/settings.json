@@ -12,5 +12,6 @@
       "baseUrl": "https://api.example.com",
       "authToken": ""
     }
-  }
+  },
+  "workbench.activityBar.orientation": "vertical"
 }
