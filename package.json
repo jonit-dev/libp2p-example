@@ -9,6 +9,7 @@
   },
   "scripts": {
     "p2p": "tsx ./src/p2pnode.ts",
+    "p2p:debug": "DEBUG=\"libp2p:*\" tsx ./src/p2pnode.ts debug",
     "dev": "tsx watch ./src/server.ts",
     "routes": "tsx ./src/server.ts --show-routes",
     "build": "tsc -p .",
@@ -61,11 +62,18 @@
     "uuid": "^8.3.2"
   },
   "dependencies": {
+    "@chainsafe/libp2p-gossipsub": "^14.1.0",
     "@chainsafe/libp2p-noise": "^16.0.0",
     "@chainsafe/libp2p-yamux": "^7.0.1",
+    "@libp2p/bootstrap": "^11.0.5",
+    "@libp2p/identify": "^3.0.5",
+    "@libp2p/kad-dht": "^13.1.0",
+    "@libp2p/mdns": "^11.0.5",
     "@libp2p/noise": "^12.0.1",
+    "@libp2p/pubsub-peer-discovery": "^11.0.0",
     "@libp2p/tcp": "^10.0.5",
     "@libp2p/websockets": "^9.0.5",
+    "@multiformats/multiaddr": "^12.3.1",
     "apicache-plus": "^2.3.1",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.13.2",
