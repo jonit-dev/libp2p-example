@@ -12,16 +12,14 @@ const node2 = await libP2PNode.startNode("8001");
 
 // Wait a bit to allow nodes to discover each other via mDNS
 console.log("Waiting for nodes to discover each other...");
-await new Promise((resolve) => setTimeout(resolve, 10000));
+await new Promise((resolve) => setTimeout(resolve, 2000));
 
-await libP2PNode.logConnectedPeers(node1);
-
-libP2PMessaging.addEventListener(node1, (message) => {
-  console.log("Received message:", message);
+libP2PMessaging.addEventListener(node1, (message, from) => {
+  console.log(`Node1 received message from ${from}:`, message);
 });
 
-libP2PMessaging.addEventListener(node2, (message) => {
-  console.log("Received message:", message);
+libP2PMessaging.addEventListener(node2, (message, from) => {
+  console.log(`Node2 received message from ${from}:`, message);
 });
 
 // Subscribe to the "chat" topic on node1
@@ -35,4 +33,6 @@ console.log("Preparing to publish message...");
 await new Promise((resolve) => setTimeout(resolve, 2000));
 
 // lets publish a message to the chat topic
-libP2PMessaging.publish(node1, "chat", "Hello, world!");
+libP2PMessaging.publish(node1, "chat", {
+  message: "Hello from node 1",
+});

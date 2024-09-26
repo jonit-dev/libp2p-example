@@ -2,6 +2,8 @@
 import { gossipsub } from "@chainsafe/libp2p-gossipsub";
 import { noise } from "@chainsafe/libp2p-noise";
 import { yamux } from "@chainsafe/libp2p-yamux";
+import { appEnv } from "@constants/appEnv";
+import { bootstrap } from "@libp2p/bootstrap";
 import { identify } from "@libp2p/identify";
 import { kadDHT } from "@libp2p/kad-dht";
 import { mdns } from "@libp2p/mdns";
@@ -27,22 +29,40 @@ export class LibP2PNode {
 
   // Creates and configures the LibP2p instance
   private async createNode(port: string): Promise<Libp2p> {
+    const isProduction = appEnv.general.env === "Production";
+
+    const peerDiscovery: any[] = [];
+
+    if (isProduction) {
+      peerDiscovery.push(
+        bootstrap({
+          list: appEnv.libp2p.bootstrapNodes.split(","),
+        })
+      );
+
+      peerDiscovery.push(pubsubPeerDiscovery({ interval: 1000 }));
+    } else {
+      peerDiscovery.push(
+        mdns({
+          interval: 1000,
+        })
+      );
+    }
+
     const options: Libp2pOptions = {
       addresses: { listen: [`/ip4/0.0.0.0/tcp/${port}`] },
       transports: [tcp(), webSockets()],
       connectionEncrypters: [noise()],
       streamMuxers: [yamux()],
-      peerDiscovery: [
-        pubsubPeerDiscovery({ interval: 1000 }),
-        mdns({
-          interval: 1000,
-        }),
-      ],
-
+      peerDiscovery,
       services: {
-        dht: kadDHT({ clientMode: false }), // Optional DHT for peer routing
-        identify: identify(), // Required for peer identification
+        identify: identify(),
         pubsub: gossipsub(),
+        ...(isProduction && {
+          dht: kadDHT({
+            clientMode: false,
+          }),
+        }),
       },
     };
 
@@ -60,20 +80,9 @@ export class LibP2PNode {
     }
   }
 
-  public logConnectedPeers(node: Libp2p): void {
-    // @ts-ignore
-    const connectedPeers = node?.peerStore.peers;
-    if (connectedPeers && connectedPeers.size > 0) {
-      console.log("Connected peers:");
-      connectedPeers.forEach((peer) => {
-        console.log(`- ${peer.id.toString()} (${peer.isConnected ? "connected" : "disconnected"})`);
-      });
-    } else {
-      console.log("No connected peers found.");
-    }
-  }
-
-  // Adds peer discovery and connection event listeners
+  /**
+   * Adds peer discovery and connection event listeners
+   */
   private addEventListeners(): void {
     this.node?.addEventListener("peer:discovery", async (evt) => {
       const discoveredPeerId = evt.detail.id;
@@ -90,6 +99,20 @@ export class LibP2PNode {
       } catch (err) {
         console.error(`Failed to connect to ${discoveredPeerId.toString()}:`, err);
       }
+    });
+
+    // Optionally, handle other relevant events to reduce unnecessary logs
+    this.node?.addEventListener("peer:connect", (evt) => {
+      // @ts-ignore
+      const peerId = evt.detail.publicKey.toString();
+      console.log(`🔗 Connected to peer ${peerId}`);
+    });
+
+    this.node?.addEventListener("peer:disconnect", (evt) => {
+      // @ts-ignore
+      const peerId = evt.detail.publicKey.toString();
+
+      console.log(`🔌 Disconnected from peer ${peerId}`);
     });
   }
 }
